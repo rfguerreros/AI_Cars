@@ -93,7 +93,7 @@ def lane(l_min):
     
     return np.array(points)
 
-points = lane(l_min)
+points = lane(0.5)
 x = []
 y = []
 for i in range(len(points)):

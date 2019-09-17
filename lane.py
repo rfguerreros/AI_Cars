@@ -1,10 +1,10 @@
 import matplotlib.pyplot as plt
 from scipy.interpolate import CubicSpline
+from scipy.integrate import quad
 import numpy as np
 import math
 
-def lane(resolution):
-    resolution_points = resolution
+def lane(l_min):
     n_points = 15     #2*pi/n_points
 
     if n_points%2 == 0:
@@ -47,24 +47,56 @@ def lane(resolution):
     poly_x_outer = CubicSpline(theta, x)
     poly_y_outer = CubicSpline(theta, y)
 
-    draw = np.linspace(np.pi,3.*np.pi,resolution_points)
+    resolution_points = 200
 
-    track_i_x = poly_x_inner(draw)
-    track_i_y = poly_y_inner(draw)
-    track_o_x = poly_x_outer(draw)
-    track_o_y = poly_y_outer(draw)
+    draw = np.linspace(np.pi,3.*np.pi,8*resolution_points)
+
+    vi_x = poly_x_inner.derivative()(draw)
+    vi_y = poly_y_inner.derivative()(draw)
+    vo_x = poly_x_outer.derivative()(draw)
+    vo_y = poly_y_outer.derivative()(draw)
+
+    length_I = np.trapz(np.sqrt(vi_x**2. + vi_y**2.))
+    resolution_I = int(100*(1.-l_min))
+    print resolution_I
+    s_I = np.linspace(0,length_I,resolution_I)
+
+    length_O = np.trapz(np.sqrt(vo_x**2. + vo_y**2.))
+    resolution_O = int(100*(1.-l_min))
+    print resolution_O
+    s_O = np.linspace(0,length_O,resolution_O)
+
+    theta_I = []
+    theta_O = []
+
+    for i in range(resolution_I):
+        for j in range(8*resolution_points):
+            if np.trapz(np.sqrt(vi_x[:j]**2. + vi_y[:j]**2.)) >= s_I[i]:
+                theta_I.append(draw[j])
+                break
+    for i in range(resolution_O):
+        for k in range(8*resolution_points):
+            if np.trapz(np.sqrt(vo_x[:k]**2. + vo_y[:k]**2.)) >= s_O[i]:
+                theta_O.append(draw[k])
+                break
+
+    track_i_x = poly_x_inner(theta_I)
+    track_i_y = poly_y_inner(theta_I)
+    track_o_x = poly_x_outer(theta_O)
+    track_o_y = poly_y_outer(theta_O)
 
     points = []
-    for i in range(resolution):
+    for i in range(resolution_I-1):
         points.append([track_i_x[i],track_i_y[i]])
+    for i in range(resolution_O-1):
         points.append([track_o_x[i],track_o_y[i]])
     
     return np.array(points)
 
-points = lane(600)
+points = lane(l_min)
 x = []
 y = []
-for i in range(1200):
+for i in range(len(points)):
     x.append(points[i,0])
     y.append(points[i,1])
 plt.plot(x,y,'o')

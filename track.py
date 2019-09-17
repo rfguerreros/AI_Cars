@@ -13,10 +13,13 @@ class Track:
 
 def map(track,world,pixels):
     for i in range(len(track.lane)):
-        xi = int((track.lane[i,0] - track.min_Xcoor) * (pixels-3)/track.lx)+1
-        yi = int((track.lane[i,1] - track.min_Ycoor) * (pixels-3)/track.ly)+1
+        xi = int((track.lane[i,0]*(pixels-9)+(4*track.max_Xcoor-(pixels-5)*track.min_Xcoor))/track.lx)
+        yi = int((track.lane[i,1]*(pixels-9)+(4*track.max_Ycoor-(pixels-5)*track.min_Ycoor))/track.ly)
         world.Space[xi,yi] = 1
         world.Space[xi+1,yi] = 1
         world.Space[xi,yi+1] = 1
         world.Space[xi-1,yi] = 1
-        world.Space[xi,yi-1] = 1
+        world.Space[xi-1,yi-1] = 1
+        world.Space[xi+1,yi-1] = 1
+        world.Space[xi+1,yi+1] = 1
+        world.Space[xi-1,yi+1] = 1

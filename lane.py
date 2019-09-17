@@ -4,7 +4,8 @@ from scipy.integrate import quad
 import numpy as np
 import math
 
-def lane(l_min):
+test = False
+def lane(l_min):      #l_min between 0 - 1 (avoid <~ 0.001)
     n_points = 15     #2*pi/n_points
 
     if n_points%2 == 0:
@@ -57,13 +58,13 @@ def lane(l_min):
     vo_y = poly_y_outer.derivative()(draw)
 
     length_I = np.trapz(np.sqrt(vi_x**2. + vi_y**2.))
-    resolution_I = int(100*(1.-l_min))
-    print resolution_I
+    resolution_I = int(4*resolution_points*(1.-l_min))
+    #print resolution_I
     s_I = np.linspace(0,length_I,resolution_I)
 
     length_O = np.trapz(np.sqrt(vo_x**2. + vo_y**2.))
-    resolution_O = int(100*(1.-l_min))
-    print resolution_O
+    resolution_O = int((length_O/length_I)*4*resolution_points*(1.-l_min))
+    #print resolution_O
     s_O = np.linspace(0,length_O,resolution_O)
 
     theta_I = []
@@ -93,18 +94,18 @@ def lane(l_min):
     
     return np.array(points)
 
-points = lane(0.5)
-x = []
-y = []
-for i in range(len(points)):
-    x.append(points[i,0])
-    y.append(points[i,1])
-plt.plot(x,y,'o')
-plt.show()
+if test == True:
+    points = lane(0.7)
+    x = []
+    y = []
+    for i in range(len(points)):
+        x.append(points[i,0])
+        y.append(points[i,1])
+    plt.plot(x,y,'o')
+    plt.show()
 
 
-""" 
-def lane(min_l):
+def lane_square(min_l):
     x_min_o = 0
     x_max_o = 5
 
@@ -132,4 +133,3 @@ def lane(min_l):
     base_i_y_r = np.c_[np.ones(len(base_i_y))*x_max_i,base_i_y]
 
     return np.concatenate((base_o_x_d,base_o_x_u,base_o_y_l,base_o_y_r,base_i_x_d,base_i_x_u,base_i_y_l,base_i_y_r),axis=0)
- """

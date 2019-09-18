@@ -25,7 +25,8 @@ class Car:
     def map(self,a):
         xi = int((self.pos[0]*(self.world_in.pixels-9)+(4*self.track_in.max_Xcoor-(self.world_in.pixels-5)*self.track_in.min_Xcoor))/self.track_in.lx)
         yi = int((self.pos[1]*(self.world_in.pixels-9)+(4*self.track_in.max_Ycoor-(self.world_in.pixels-5)*self.track_in.min_Ycoor))/self.track_in.ly)
-        self.world_in.Space[xi,yi]=a
+        if self.world_in.Space[xi,yi]==0:
+            self.world_in.Space[xi,yi]=a
     
     def sensor_f(self,min_l):
         a = 0

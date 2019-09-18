@@ -26,11 +26,7 @@ ymax = monza.max_Ycoor
 
 mecho = c.Car([0.45*(xmax-xmin),0.5*(ymax+ymin)],0,monza,earth,5)
 
-mecho.map()
-
-mecho.sensor_fill(min_l)
-
-print(mecho.sensor)
+mecho.map(mecho.id)
 
 plt.matshow(earth.Space)
 

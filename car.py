@@ -22,10 +22,10 @@ class Car:
         yi = int((y*(self.world_in.pixels-9)+(4*self.track_in.max_Ycoor-(self.world_in.pixels-5)*self.track_in.min_Ycoor))/self.track_in.ly)
         return self.world_in.Space[xi,yi]
 
-    def map(self):
+    def map(self,a):
         xi = int((self.pos[0]*(self.world_in.pixels-9)+(4*self.track_in.max_Xcoor-(self.world_in.pixels-5)*self.track_in.min_Xcoor))/self.track_in.lx)
         yi = int((self.pos[1]*(self.world_in.pixels-9)+(4*self.track_in.max_Ycoor-(self.world_in.pixels-5)*self.track_in.min_Ycoor))/self.track_in.ly)
-        self.world_in.Space[xi,yi]=self.id
+        self.world_in.Space[xi,yi]=a
     
     def sensor_f(self,min_l):
         a = 0
@@ -107,3 +107,13 @@ class Car:
         self.sensor_lc(min_l)
         self.sensor_r(min_l)
         self.sensor_l(min_l)
+        self.sensor[5] = self.vel
+
+    def move(self,dir,deltaT):
+        self.map(0)
+        self.ori += dir[0]*deltaT
+        self.ori = math.fmod(self.ori,2*np.pi)
+        self.vel += dir[1]*deltaT
+        self.pos[0] += (self.vel) *deltaT* np.cos(self.ori)
+        self.pos[1] += (self.vel) *deltaT* np.sin(self.ori)
+        self.map(self.id)

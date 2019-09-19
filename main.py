@@ -10,7 +10,7 @@ import driver as d
 print("Loading begins")
 
 pixels = 100
-min_l = 0.01
+min_l = 0.05
 deltaT = 0.01
 lane_l = 0.6
 
@@ -32,11 +32,15 @@ deo = d.Driver(mecho)
 
 mecho.map(mecho.id)
 
-plt.matshow(earth.Space)
+#plt.matshow(earth.Space)
 
-while(deo.crash == False):
+t=0
+
+while(deo.crash == False and t<1000):
+    t+=1
+    print(mecho.pos[0],mecho.pos[1])
     deo.drive(deltaT,min_l)
 
-plt.matshow(earth.Space)
+#plt.matshow(earth.Space)
 
-plt.show()
+#plt.show()

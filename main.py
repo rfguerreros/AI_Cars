@@ -7,7 +7,7 @@ import lane as l
 
 pixels = 100
 
-min_l = 0.7
+min_l = 0.6
 
 earth = w.World(pixels)
 monza = t.Track(l.lane(min_l))

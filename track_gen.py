@@ -9,8 +9,8 @@ test = False
 n_samples = 40
 l_min = 0.6
 
-def generate_track(l_min):      #l_min between 0 - 1 (avoid <~ 0.001)
-    n_points = 15     #2*pi/n_points
+def generate_track(l_min):      #l_min between 0 - 1 (1 maximum resoluition)
+    n_points = 15               #2*pi/n_points
 
     if n_points%2 == 0:
         n_points += 1
@@ -99,7 +99,7 @@ def generate_track(l_min):      #l_min between 0 - 1 (avoid <~ 0.001)
     return np.array(points)
 
 if test == True:
-    points = lane(0.7)
+    points = generate_track(0.7)
     x = []
     y = []
     for i in range(len(points)):

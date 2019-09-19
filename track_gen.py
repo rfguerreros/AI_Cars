@@ -6,7 +6,7 @@ import math
 import os
 
 test = False
-n_samples = 20
+n_samples = 40
 l_min = 0.6
 
 def generate_track(l_min):      #l_min between 0 - 1 (avoid <~ 0.001)

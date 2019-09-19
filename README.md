@@ -1,3 +1,8 @@
 # AI_Cars
 
-AI for cars in an arbitrary track.
+To execute $python main.py
+
+Authors:
+Antolinez Santiago
+Guerrero Ramon
+Veloza Diego

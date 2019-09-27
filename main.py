@@ -7,8 +7,6 @@ import lane as l
 import car as c
 import driver as d
 
-print("Loading begins")
-
 pixels = 100
 min_l = 0.05
 deltaT = 0.01
@@ -18,8 +16,6 @@ earth = w.World(pixels)
 monza = t.Track(l.lane(lane_l))
 
 t.map(monza,earth,pixels)
-
-print("Loading ends")
 
 xmin = monza.min_Xcoor
 xmax = monza.max_Xcoor
@@ -32,15 +28,14 @@ deo = d.Driver(mecho)
 
 mecho.map(mecho.id)
 
-#plt.matshow(earth.Space)
+plt.matshow(earth.Space)
 
 t=0
 
 while(deo.crash == False and t<1000):
     t+=1
-    print(mecho.pos[0],mecho.pos[1])
     deo.drive(deltaT,min_l)
 
-#plt.matshow(earth.Space)
+plt.matshow(earth.Space)
 
-#plt.show()
+plt.show()

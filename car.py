@@ -16,6 +16,10 @@ class Car:
         self.world_in = world
         self.vel = 0
         self.id = c_id
+        print("Car %i created." %self.id)
+    
+    def __del__(self):
+        print("Car %i deleted." %self.id)
 
     def sense_world(self,x,y):
         xi = int((x*(self.world_in.pixels-9)+(4*self.track_in.max_Xcoor-(self.world_in.pixels-5)*self.track_in.min_Xcoor))/self.track_in.lx)
@@ -112,9 +116,9 @@ class Car:
 
     def move(self,dir,deltaT):
         self.map(0)
-        self.ori += dir[0]*deltaT
+        self.ori += dir[0,0]*deltaT
         self.ori = math.fmod(self.ori,2*np.pi)
-        self.vel += dir[1]*deltaT
+        self.vel += dir[0,1]*deltaT
         self.pos[0] += (self.vel) *deltaT* np.cos(self.ori)
         self.pos[1] += (self.vel) *deltaT* np.sin(self.ori)
         self.map(self.id)

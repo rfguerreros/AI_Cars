@@ -7,3 +7,4 @@ class World:
         # i = 0 -> Nothing
         # i = 1 -> Track
         # i >= 5 -> c_id
+        print("World created.")

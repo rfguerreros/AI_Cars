@@ -10,6 +10,7 @@ class Track:
         self.min_Ycoor = np.min(self.lane[:,1])
         self.lx = self.max_Xcoor - self.min_Xcoor
         self.ly = self.max_Ycoor - self.min_Ycoor
+        print("Track created.")
 
 def map(track,world,pixels):
     for i in range(len(track.lane)):

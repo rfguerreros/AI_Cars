@@ -23,6 +23,7 @@ def locate_cars(dire, car):
             if check_surr(a,xm,car) == True:
                 find_coordinates(a,xm,car)
                 car.map(car.id)
+                print("Car %i located" %car.id)
                 #car.world_in.Space[a,xm] = 2
                 return True
             else:
@@ -43,6 +44,7 @@ def locate_cars(dire, car):
             if check_surr(xm,a,car) ==True:
                 find_coordinates(xm,a,car)
                 car.map(car.id)
+                print("Car %i located" %car.id)
                 #car.world_in.Space[xm,a] = 2
                 return True
             else:
@@ -64,6 +66,7 @@ def locate_cars(dire, car):
             if check_surr(a,xm,car) == True:
                 find_coordinates(a,xm,car)
                 car.map(car.id)
+                print("Car %i located" %car.id)
                 #car.world_in.Space[a,xm] = 2
                 return True
             else:
@@ -86,6 +89,7 @@ def locate_cars(dire, car):
                 #car.world_in.Space[xm,a] = 2
                 find_coordinates(xm,a,car)
                 car.map(car.id)
+                print("Car %i located" %car.id)
                 return True
             else:
                 return False

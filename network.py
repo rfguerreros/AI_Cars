@@ -40,5 +40,4 @@ class Network:
                 a.append(np.maximum(np.matmul(in_v,self.weights[0])+self.bias[0],0))
             else:
                 a.append(np.maximum(np.matmul(a[i-1],self.weights[i])+self.bias[i],0))
-        print(np.maximum(np.matmul(a[len(a)-1],self.weights[len(a)])+self.bias[len(a)],0))
         return np.maximum(np.matmul(a[len(a)-1],self.weights[len(a)])+self.bias[len(a)],0)
